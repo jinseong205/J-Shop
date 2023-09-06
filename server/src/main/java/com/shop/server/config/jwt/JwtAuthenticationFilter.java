@@ -1,4 +1,4 @@
-package com.shop.server.config.jwt;
+	package com.shop.server.config.jwt;
 
 import java.io.IOException;
 import java.util.Date;
@@ -22,14 +22,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.server.config.auth.PrincipalDetails;
 import com.shop.server.entity.User;
-import com.shop.server.error.ErrorResult;
+import com.shop.server.exception.auth.AuthErrorResult;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-// Spring Security 에서 UsernamePasswordAuthenticationFilter가 있음.
-// login 요청해서 username,password 전송하면 (post)
-// UsernamePasswordAuthenticationFilter가 동작 함.
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 	
@@ -46,19 +42,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 
 
-	// /login 요청을 하면 로그인 시도를 위해서 실행 되는 함수
+	// Login 요청시로그인 시도를 위해서 실행 되는 함수
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		log.debug("********** JwtAuthenticationFilter > attemptAuthentication() ***********");
 		
 		try {
-			// 1. username, password 받아서
+			// 1. username, password 
 			ObjectMapper om = new ObjectMapper();
 			User user = om.readValue(request.getInputStream(), User.class);
 			log.debug("********** user : " + user.toString() + " **********");
 			
-			// 2. 정상인지 로그인 시도. 유저정보로 토큰을 만들어 authenticationManager로 로로그인 시도
+			// 2. 정상인지 로그인 시도. 유저정보로 토큰을 만들어 authenticationManager로 로그인 시도
 			//    -> PrincipalDetailsService 의 loadUserByUser가 실행됨 
 			//    -> 정상이면  authentication 리턴 됨
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
@@ -76,7 +72,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}catch(NullPointerException e) {
 			log.debug("********** login Fail **********");
 			
-			ErrorResult errorResult = new ErrorResult("존재하지 않는 아이디 입니다.");
+			AuthErrorResult errorResult = new AuthErrorResult("존재하지 않는 아이디 입니다.");
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String result ="";
@@ -89,7 +85,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}catch(BadCredentialsException e) {
 			log.debug("********** login Fail **********");
 			
-			ErrorResult errorResult = new ErrorResult("아이디 혹은 패스워드가 일치하지 않습니다.");
+			AuthErrorResult errorResult = new AuthErrorResult("아이디 혹은 패스워드가 일치하지 않습니다.");
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String result ="";
@@ -104,7 +100,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			
 			e.printStackTrace();
 			
-			ErrorResult errorResult = new ErrorResult(e.getMessage());
+			AuthErrorResult errorResult = new AuthErrorResult(e.getMessage());
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String result ="";
@@ -152,7 +148,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		log.debug("********** login Fail - unsuccessfulAuthentication **********");
 		
-		ErrorResult errorResult = new ErrorResult("아이디 혹은 패스워드가 일치하지 않습니다.");
+		AuthErrorResult errorResult = new AuthErrorResult("아이디 혹은 패스워드가 일치하지 않습니다.");
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String result = mapper.writeValueAsString(errorResult);

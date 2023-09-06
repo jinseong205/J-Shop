@@ -21,12 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shop.server.config.auth.PrincipalDetails;
 import com.shop.server.dto.UserFormDto;
 import com.shop.server.entity.User;
+import com.shop.server.exception.CustomException;
+import com.shop.server.exception.ExceptionCode;
 import com.shop.server.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -35,13 +36,11 @@ public class UserController {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@PostMapping("/api/join")
-	public ResponseEntity<?> join(@RequestBody @Valid UserFormDto userFormDto, BindingResult bindingResult)
+	public ResponseEntity<?> join(@RequestBody UserFormDto userFormDto)
 			throws Exception {
-
-		if (bindingResult.hasErrors()) {
-			throw new Exception(bindingResult.getFieldError().getDefaultMessage());
-		}
-
+		
+		userFormDto.validate();
+		
 		User user;
 		user = User.builder().username(userFormDto.getUsername())
 				.password(bCryptPasswordEncoder.encode(userFormDto.getPassword())).name(userFormDto.getName())
@@ -57,9 +56,8 @@ public class UserController {
 		Pageable pegealbe = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
 
 		if (!principalDetails.getUser().getRoleList().contains("ROLE_ADMIN")
-				&& !principalDetails.getUser().getRoleList().contains("ROLE_ADMIN")) {
-			throw new Exception("권한이 없습니다.");
-		}
+				&& !principalDetails.getUser().getRoleList().contains("ROLE_ADMIN"))
+			throw new CustomException(ExceptionCode.PERMISSION_ERROR);
 
 		Page<User> users = userService.getUsers(pegealbe);
 		return new ResponseEntity<>(users, HttpStatus.OK);
@@ -70,11 +68,9 @@ public class UserController {
 	public ResponseEntity<?> user( @RequestBody User user ,@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
 		
 		if (!principalDetails.getUser().getRoleList().contains("ROLE_ADMIN")
-				&& !principalDetails.getUser().getRoleList().contains("ROLE_ADMIN")) {
-			throw new Exception("권한이 없습니다.");
-		}
+				&& !principalDetails.getUser().getRoleList().contains("ROLE_ADMIN")) 
+			throw new CustomException(ExceptionCode.PERMISSION_ERROR);
 
-		log.debug(user.toString());
 		userService.updateUserRoles(user);
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}

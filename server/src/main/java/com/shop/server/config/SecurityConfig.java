@@ -28,8 +28,6 @@ import lombok.RequiredArgsConstructor;
 																			// postAuthorize annotion 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	
-	
 	private final CorsConfig corsConfig;
 
 	private final UserRepository userRepository;
@@ -58,20 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public JwtAuthorizationFilter jwtAuthorizationFilter() throws Exception {
 		return new JwtAuthorizationFilter(authenticationManager(), userRepository, jwtProperties);
 	}
-
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		// Security Filter 순서
-		// SecurityContextPersistenceFilter -> LogoutFilter ->
-		// UsernamePasswordAuthenticationFilter
-		// -> DefaultLoginPageGeneratingFilter -> BasicAuthenticationFilter ->
-		// RememberMeAuthenticationFilter
-		// -> SecurityContextHolderAwareRequestFilter -> AnonymousAuthenticationFilter
-		// -> SessionManagementFilter
-		// -> ExceptionTranslationFilter -> FilterSecurityInterceptor
-		
 		http.addFilterBefore(new TraceFilter(), SecurityContextPersistenceFilter.class);
 
 		http.csrf().disable(); // csrf 비활성화

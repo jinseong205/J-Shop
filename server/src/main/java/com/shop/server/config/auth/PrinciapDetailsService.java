@@ -14,14 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PrinciapDetailsService implements UserDetailsService{
 	
 	private final UserRepository userRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		log.debug("********** PrinciapDetailsService => loadUserByUsername **********");
 		User userEntity = userRepository.findByUsername(username);
 		return new PrincipalDetails(userEntity);
 	}

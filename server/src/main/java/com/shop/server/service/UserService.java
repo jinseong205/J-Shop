@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shop.server.entity.User;
+import com.shop.server.exception.CustomException;
+import com.shop.server.exception.ExceptionCode;
 import com.shop.server.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 	private final UserRepository userRepository;
 	
-	//회원 가입
+	@Transactional
 	public User join(User user) {
 		validateUser(user);
 		return userRepository.save(user);
@@ -26,9 +28,8 @@ public class UserService {
 
 	public void validateUser(User user) {
 		User findUser = userRepository.findByUsername(user.getUsername());
-		if(findUser != null) {
-			throw new IllegalStateException("이미 가입된 회원입니다.");
-		}
+		if(findUser != null)
+			throw new CustomException(ExceptionCode.DUPLICATE_EMAIL_USER_TO_CREATE);
 	}
 	
 	

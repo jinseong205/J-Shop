@@ -1,14 +1,14 @@
-package com.shop.server.error;
+package com.shop.server.exception.auth;
 
 import lombok.Data;
 import lombok.ToString;
 
 @Data
 @ToString
-public class ErrorResult {
+public class AuthErrorResult {
 	private String message;
 
-	public ErrorResult(String message) {
+	public AuthErrorResult(String message) {
 		this.message = message;
 	}
 	
