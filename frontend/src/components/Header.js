@@ -23,10 +23,15 @@ function Header() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token != null) {
-      const decodedToken = jwt_decode(token);
-      if (decodedToken) {
-        setUserRoles(decodedToken.roles);
-        setUsername(decodedToken.username);
+      try{
+        const decodedToken = jwt_decode(token);
+        console.log(token);
+        if (decodedToken) {
+          setUserRoles(decodedToken.roles);
+          setUsername(decodedToken.username);
+        }
+      }catch (err){
+        console.log(err);
       }
     }
   }, []);

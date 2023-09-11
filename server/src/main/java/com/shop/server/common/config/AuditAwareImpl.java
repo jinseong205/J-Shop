@@ -1,4 +1,4 @@
-package com.shop.server.config;
+package com.shop.server.common.config;
 
 import java.util.Optional;
 
@@ -6,7 +6,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.shop.server.config.auth.PrincipalDetails;
+import com.shop.server.auth.PrincipalDetails;
 
 public class AuditAwareImpl implements AuditorAware<String>{
 
