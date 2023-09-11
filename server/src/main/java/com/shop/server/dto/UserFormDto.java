@@ -1,7 +1,7 @@
 package com.shop.server.dto;
 
-import com.shop.server.exception.CustomException;
-import com.shop.server.exception.ExceptionCode;
+import com.shop.server.common.exception.CustomException;
+import com.shop.server.common.exception.ExceptionCode;
 
 import lombok.Data;
 

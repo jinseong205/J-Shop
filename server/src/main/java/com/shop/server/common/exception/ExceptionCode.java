@@ -1,4 +1,4 @@
-package com.shop.server.exception;
+package com.shop.server.common.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

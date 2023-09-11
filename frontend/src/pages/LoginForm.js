@@ -32,23 +32,11 @@ const LoginForm = () => {
       body: JSON.stringify(user)
 
     })
-      .then(res => {
-        if (res.status === 200) {
-          console.log(res.headers.get("Authorization"));
-          if (res.headers.get("Authorization")) {
-            localStorage.setItem('token', res.headers.get("Authorization"));
-            navigate("/");
-          }
-        } else {
-          return res.json();
-        }
-      })
+      .then(res => res.json())
       .then(data => {
-        if (data != null) {
-          console.log(data);
-          alert(data.message);
-        }
-      })
+          localStorage.setItem('token', data.accessToken);
+          navigate("/");
+        })
       .catch(err => {
         if (err) {
           alert("로그인 중 오류가 발생 하였습니다." + err);

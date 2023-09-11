@@ -1,4 +1,4 @@
-package com.shop.server.exception.auth;
+package com.shop.server.auth;
 
 import lombok.Data;
 import lombok.ToString;

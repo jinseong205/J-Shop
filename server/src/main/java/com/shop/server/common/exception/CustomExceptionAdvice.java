@@ -1,4 +1,4 @@
-package com.shop.server.exception;
+package com.shop.server.common.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

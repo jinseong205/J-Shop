@@ -1,4 +1,4 @@
-package com.shop.server.config.auth;
+package com.shop.server.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,7 +26,6 @@ public class PrincipalDetails implements UserDetails{
 		user.getRoleList().forEach(r->{
 				authorities.add(()->r);
 			});
-
 		
 		return authorities;
 	}
