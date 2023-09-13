@@ -21,7 +21,13 @@ public enum ExceptionCode {
     VALIDATION_USER_ADDR(HttpStatus.BAD_REQUEST, "주소를 입력해주세요."),
     
     //Item 관련
+    NO_ITEM_TO_GET(HttpStatus.BAD_REQUEST, "해당 상품 정보가 없습니다."),
     NO_ITEM_TO_UPDATE(HttpStatus.BAD_REQUEST, "수정할 상품이 없습니다."),
+    NO_REP_ITEM_IMG(HttpStatus.BAD_REQUEST, "첫번째 상품이미지는 필수 입력 값입니다."),
+    
+    //File 관련
+    FILE_UPLOAD_ERROR(HttpStatus.BAD_REQUEST, "파일 업로드 중 오류가 발생하였습니다."),
+    FILE_DELETE_ERROR(HttpStatus.BAD_REQUEST, "파일 삭제 중 오류가 발생하였습니다."),
     
     //권한 오류
     PERMISSION_ERROR(HttpStatus.UNAUTHORIZED, "권한이 부족합니다.")

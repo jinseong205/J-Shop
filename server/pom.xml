@@ -56,14 +56,22 @@
 		    <scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
+		    <groupId>com.querydsl</groupId>
+		    <artifactId>querydsl-jpa</artifactId>
+		    <version>5.0.0</version>
+		    <classifier>jakarta</classifier>
 		</dependency>
 		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
+		    <groupId>com.querydsl</groupId>
+		    <artifactId>querydsl-apt</artifactId>
+		    <version>5.0.0</version>
+		    <classifier>jakarta</classifier>
 		</dependency>
-		
+		<dependency>
+		    <groupId>com.querydsl</groupId>
+		    <artifactId>querydsl-core</artifactId>
+		    <version>5.0.0</version>
+		</dependency>	
 		<!-- Oracle ADW -->
 		<dependency>
 			<groupId>ojdbc8</groupId>
@@ -115,6 +123,11 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+		<dependency>
+		    <groupId>org.modelmapper</groupId>
+		    <artifactId>modelmapper</artifactId>
+		    <version>2.3.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -125,5 +138,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
