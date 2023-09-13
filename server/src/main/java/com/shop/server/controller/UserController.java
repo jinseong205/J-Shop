@@ -1,20 +1,10 @@
 package com.shop.server.controller;
 
 import java.util.Optional;
+import javax.validation.Valid;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.validation.BindingResult;
 import com.shop.server.auth.PrincipalDetails;
 import com.shop.server.common.exception.CustomException;
 import com.shop.server.common.exception.ExceptionCode;
@@ -24,12 +14,12 @@ import com.shop.server.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 
 	private final UserService userService;
-
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping("/api/join")
@@ -38,7 +28,9 @@ public class UserController {
 		
 		userFormDto.validate();
 		
+
 		User user = User.builder().username(userFormDto.getUsername())
+
 				.password(bCryptPasswordEncoder.encode(userFormDto.getPassword())).name(userFormDto.getName())
 				.email(userFormDto.getEmail()).addr(userFormDto.getAddr()).roles("ROLE_USER").build();
 		userService.join(user);

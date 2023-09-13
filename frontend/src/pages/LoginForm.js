@@ -37,6 +37,7 @@ const LoginForm = () => {
           localStorage.setItem('token', data.accessToken);
           navigate("/");
         })
+
       .catch(err => {
         if (err) {
           alert("로그인 중 오류가 발생 하였습니다." + err);
