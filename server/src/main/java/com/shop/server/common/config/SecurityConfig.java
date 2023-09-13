@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.shop.server.auth.AuthenticationFilter;
 import com.shop.server.common.jwt.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ public class SecurityConfig {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	
 	private final AuthenticationProvider authenticationProvider;
+	
+	private final AuthenticationFilter authenticationFilter;
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -37,7 +40,8 @@ public class SecurityConfig {
 						
 						.anyRequest().permitAll())
 				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+				.addFilter(authenticationFilter);
 		return http.build();
 	}
 }

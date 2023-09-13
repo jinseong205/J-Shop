@@ -20,10 +20,8 @@ import com.shop.server.common.exception.CustomException;
 import com.shop.server.common.exception.ExceptionCode;
 import com.shop.server.dto.UserFormDto;
 import com.shop.server.entity.User;
-import com.shop.server.service.AuthService;
 import com.shop.server.service.UserService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
