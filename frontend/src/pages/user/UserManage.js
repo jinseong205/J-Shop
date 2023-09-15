@@ -15,7 +15,7 @@ const UserManage = () => {
 
   // 사용자 목록을 서버에서 가져오는 함수
   const retrieveUsers = () => {
-      fetch(`http://localhost:8080/api/users?page=${page}`, {
+      fetch(`http://localhost:8080/api/admin/users?page=${page}`, {
         method: "GET",
         headers: {
           'Authorization': localStorage.getItem("token"),
@@ -52,7 +52,7 @@ const UserManage = () => {
       roles: userRoles,
     }
 
-    fetch("http://localhost:8080/api/user/roles", {
+    fetch("http://localhost:8080/api/admin/user/roles", {
       method: "PATCH",
       headers: {
         'Authorization': localStorage.getItem("token"),

@@ -10,6 +10,6 @@ import org.springframework.security.test.context.support.WithSecurityContext;
 public @interface WithMockCustomUser {
 	String userName() default "user";
 
-	String role() default "ROLE_USER";
+	String role() default "ROLE_ADMIN";
 
 }

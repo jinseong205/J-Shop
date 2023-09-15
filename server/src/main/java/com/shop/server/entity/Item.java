@@ -12,18 +12,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
-@ToString
+@Getter
+@Setter
 @Table(name = "item")
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "item_id")
+	@Column(name = "ITEM_ID")
 	private Long id;
 
 	@Column(name = "ITEM_NAME", nullable = false, length = 100)

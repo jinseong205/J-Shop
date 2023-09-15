@@ -1,4 +1,4 @@
-package com.shop.server.service;
+package com.shop.server.intergration.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,6 +19,7 @@ import com.shop.server.entity.Item;
 import com.shop.server.entity.ItemImg;
 import com.shop.server.repository.ItemImgRepository;
 import com.shop.server.repository.ItemRepository;
+import com.shop.server.service.ItemService;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;

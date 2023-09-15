@@ -1,4 +1,4 @@
-package com.shop.server.service;
+package com.shop.server.intergration.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.shop.server.dto.UserFormDto;
 import com.shop.server.entity.User;
+import com.shop.server.service.UserService;
 
 import jakarta.transaction.Transactional;
 

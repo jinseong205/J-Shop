@@ -1,4 +1,4 @@
-package com.shop.server.entity;
+package com.shop.server.intergration.entity;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.shop.server.custom.WithMockCustomUser;
+import com.shop.server.entity.User;
 import com.shop.server.repository.UserRepository;
 
 import jakarta.persistence.EntityManager;
