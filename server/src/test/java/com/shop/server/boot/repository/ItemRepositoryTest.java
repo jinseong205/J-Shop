@@ -1,4 +1,4 @@
-package com.shop.server.repository;
+package com.shop.server.boot.repository;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shop.server.common.constant.ItemSellStatus;
 import com.shop.server.entity.Item;
 import com.shop.server.entity.QItem;
+import com.shop.server.repository.ItemRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

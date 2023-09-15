@@ -1,6 +1,5 @@
 package com.shop.server.entity;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import com.shop.server.common.constant.OrderStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -22,6 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Getter @Setter
 @Table(name = "orders")
 @NoArgsConstructor

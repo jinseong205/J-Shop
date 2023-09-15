@@ -1,4 +1,4 @@
-package com.shop.server.unit.cotroller;
+package com.shop.server.slice.cotroller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;

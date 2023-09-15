@@ -1,4 +1,4 @@
-package com.shop.server.intergration.repository;
+package com.shop.server.slice.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

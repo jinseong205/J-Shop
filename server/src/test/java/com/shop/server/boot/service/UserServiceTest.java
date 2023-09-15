@@ -1,4 +1,4 @@
-package com.shop.server.intergration.service;
+package com.shop.server.boot.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

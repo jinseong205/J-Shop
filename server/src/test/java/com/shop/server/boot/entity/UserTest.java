@@ -1,4 +1,4 @@
-package com.shop.server.intergration.entity;
+package com.shop.server.boot.entity;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
