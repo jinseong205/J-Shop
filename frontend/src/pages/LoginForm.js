@@ -34,7 +34,7 @@ const LoginForm = () => {
     })
       .then(res => res.json())
       .then(data => {
-          localStorage.setItem('token', data.accessToken);
+          localStorage.setItem('token', "Bearer " + data.accessToken);
           navigate("/");
         })
       .catch(err => {

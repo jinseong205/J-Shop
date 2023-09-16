@@ -15,7 +15,7 @@ logging:
     name: C:/logging/shop/demo.log
     max-history: 30
   level:
-    '[com.shop.shop]': DEBUG
+    '[com.shop.server]': DEBUG
       
 spring:
   devtools:
