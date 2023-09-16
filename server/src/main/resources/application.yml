@@ -1,0 +1,54 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+logging:
+  pattern:
+    file: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
+    rolling-file-name: "C:/logging/shop/shop.%d{yyyy-MM-dd}.%i"
+  file:
+    name: C:/logging/shop/demo.log
+    max-history: 30
+  level:
+    '[com.shop.shop]': DEBUG
+      
+spring:
+  devtools:
+    livereload:
+      enabled: true # livereload 서버 켜기
+  datasource:
+    url: jdbc:mysql://localhost:3306/js?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.cj.jdbc.Driver 
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .mustache
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        #physical-strategy: org.hibernate.cfg.ImprovedNamingStrategy         
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB       #파일 1개당 최대 사이즈
+      max-request-size: 100MB   #요청당 최대 파일 크기
+
+
+
+application:  
+  security:
+    jwt:
+      secret-key: A+7z32MPi+W7O53ZsJ98gY3zKOC8AABTdN3/oa/0XdFG+MIGQkE5D+hlIlStxSSm
+      expiration: 1800000 # 30 minutes
+  itemImgLocation: C:/shop/item
+  uploadPath: file:///C:/shop/    

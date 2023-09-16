@@ -27,6 +27,8 @@ public class SecurityConfig {
 	
 	private final AuthenticationFilter authenticationFilter;
 	
+	private final CorsConfig corsConfig;
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -40,6 +42,7 @@ public class SecurityConfig {
 						
 						.anyRequest().permitAll())
 				.authenticationProvider(authenticationProvider)
+				.addFilter(corsConfig.corsFilter())
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 				.addFilter(authenticationFilter);
 		return http.build();
