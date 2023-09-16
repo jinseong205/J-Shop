@@ -1,5 +1,7 @@
 package com.shop.server.service;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,6 @@ import com.shop.server.entity.User;
 import com.shop.server.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
@@ -26,8 +27,8 @@ public class UserService {
 	}
 
 	public void validateUser(User user) {
-		User findUser = userRepository.findByUsername(user.getUsername()).get();
-		if(findUser != null)
+		Optional<User> findUser = userRepository.findByUsername(user.getUsername());
+		if(findUser.isPresent())
 			throw new CustomException(ExceptionCode.DUPLICATE_EMAIL_USER_TO_CREATE);
 	}
 	
