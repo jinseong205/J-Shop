@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			@NonNull FilterChain filterChain) throws ServletException, IOException {
 		final String authHeader = request.getHeader("Authorization");
 		final String jwt;
-		final String userEmail;
+		final String username;
 		
 		if(authHeader == null || !authHeader.startsWith("Bearer ")) {
 			filterChain.doFilter(request, response);
@@ -43,9 +43,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		
 		jwt = authHeader.substring(7);
 		try {
-			userEmail = jwtService.extractUsername(jwt);
+			username = jwtService.extractUsername(jwt);
 		}catch(ExpiredJwtException e) {
 			AuthErrorResult authErrorResult = new AuthErrorResult("토큰이 만료되었습니다.");
+			
+			ObjectMapper mapper = new ObjectMapper();
+			String result = mapper.writeValueAsString(authErrorResult);
+			
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.setCharacterEncoding("UTF-8");
+	        response.setContentType("application/json");
+			response.getWriter().write(result);
+			
+			filterChain.doFilter(request, response);
+			return;
+		}catch(Exception e) {
+			AuthErrorResult authErrorResult = new AuthErrorResult("로그인 과정 중 오류가 발생하였습니다.");
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String result = mapper.writeValueAsString(authErrorResult);
@@ -60,8 +73,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 
 		
-		if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			PrincipalDetails principalDetails = (PrincipalDetails) this.userDetailsService.loadUserByUsername(userEmail);
+		if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+			PrincipalDetails principalDetails = (PrincipalDetails) this.userDetailsService.loadUserByUsername(username);
 			if(jwtService.isTokenValid(jwt, principalDetails)) {
 				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

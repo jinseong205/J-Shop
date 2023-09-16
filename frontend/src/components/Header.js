@@ -26,7 +26,7 @@ function Header() {
       try{
         const decodedToken = jwt_decode(token);
         console.log(token);
-        if (decodedToken) {
+        if (decodedToken) { 
           setUserRoles(decodedToken.roles);
           setUsername(decodedToken.username);
         }

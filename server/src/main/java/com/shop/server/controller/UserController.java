@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,10 +34,9 @@ public class UserController {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping("/api/join")
-	public ResponseEntity<?> join(@RequestBody UserFormDto userFormDto)
+	public ResponseEntity<?> join(@RequestBody @Validated UserFormDto userFormDto)
 			throws Exception {
 		
-		userFormDto.validate();
 		
 		User user = User.builder().username(userFormDto.getUsername())
 				.password(bCryptPasswordEncoder.encode(userFormDto.getPassword())).name(userFormDto.getName())
@@ -45,22 +45,18 @@ public class UserController {
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 
-	@GetMapping("/api/users")
+	@GetMapping("/api/admin/users")
 	public ResponseEntity<?> users( Optional<Integer> page,
 			@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
 
 		Pageable pegealbe = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
-
-		if (!principalDetails.getUser().getRoleList().contains("ROLE_ADMIN")
-				&& !principalDetails.getUser().getRoleList().contains("ROLE_ADMIN"))
-			throw new CustomException(ExceptionCode.PERMISSION_ERROR);
-
+		
 		Page<User> users = userService.getUsers(pegealbe);
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
 
-	@PatchMapping("/api/user/roles")
+	@PatchMapping("/api/admin/user/roles")
 	public ResponseEntity<?> user( @RequestBody User user ,@AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception {
 		
 		if (!principalDetails.getUser().getRoleList().contains("ROLE_ADMIN")
