@@ -52,6 +52,7 @@ public class ItemService {
 	}
 
 	// 상품 수정
+	@Transactional
 	public Item updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
 
 		Item item = itemRepository.findById(itemFormDto.getId()).orElseThrow(() -> new Exception("해당 상품을 찾을 수 없습니다."));

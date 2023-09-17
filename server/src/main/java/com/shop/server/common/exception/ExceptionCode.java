@@ -24,6 +24,7 @@ public enum ExceptionCode {
     NO_ITEM_TO_GET(HttpStatus.BAD_REQUEST, "상품 정보가 없습니다."),
     NO_ITEM_TO_UPDATE(HttpStatus.BAD_REQUEST, "수정할 상품이 없습니다."),
     NO_REP_ITEM_IMG(HttpStatus.BAD_REQUEST, "첫번째 상품이미지는 필수 입력 값입니다."),
+    OUT_OF_STOCK(HttpStatus.BAD_REQUEST, "상품 재고가 부족합니다."),
     
     //File 관련
     FILE_UPLOAD_ERROR(HttpStatus.BAD_REQUEST, "파일 업로드 중 오류가 발생하였습니다."),
