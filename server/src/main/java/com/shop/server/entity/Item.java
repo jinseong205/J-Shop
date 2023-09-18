@@ -1,6 +1,8 @@
 package com.shop.server.entity;
 
 import com.shop.server.common.constant.ItemSellStatus;
+import com.shop.server.common.exception.CustomException;
+import com.shop.server.common.exception.ExceptionCode;
 import com.shop.server.dto.ItemFormDto;
 
 import jakarta.persistence.Column;
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -58,12 +61,15 @@ public class Item extends BaseEntity {
 		this.itemSellStatus = itemFormDto.getItemSellStatus();
 	}
 
+	@Version
+	private int version;
+	
 	public void removeStock(int stockNum) throws Exception {
 		int restStock = this.stockNum - stockNum;
 
 		if (restStock < 0)
-			throw new Exception("상품의 재고가 부족합니다. \n(현재 재고수량 : " + this.stockNum + ")");
-
+			throw new CustomException(ExceptionCode.OUT_OF_STOCK);
+			
 		this.stockNum = restStock;
 	}
 

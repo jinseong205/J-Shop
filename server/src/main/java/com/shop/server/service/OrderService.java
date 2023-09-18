@@ -35,6 +35,7 @@ public class OrderService {
 	private final OrderRepository orderRepository;
 	private final ItemImgRepository itemImgRepository;
 
+	@Transactional
 	public Long order(OrderDto orderItemDto, PrincipalDetails principalDetails) throws Exception {
 		Item item = itemRepository.findById(orderItemDto.getItemId())
 				.orElseThrow(() -> new CustomException(ExceptionCode.NO_ITEM_TO_GET));
@@ -71,6 +72,7 @@ public class OrderService {
 		return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
 	}
 
+	@Transactional(readOnly = true)
 	public boolean validateOrder(Long orderId, PrincipalDetails principalDetails) throws Exception {
 
 		Order order = orderRepository.findById(orderId).orElseThrow(() -> new CustomException(ExceptionCode.NO_ORDER_TO_GET));
@@ -83,6 +85,7 @@ public class OrderService {
 		return true;
 	}
 
+	@Transactional
 	public void cancelOrder(Long orderId) throws Exception {
 		Order order = orderRepository.findById(orderId).orElseThrow(() -> new CustomException(ExceptionCode.NO_ORDER_TO_GET));
 		order.cancelOrder();

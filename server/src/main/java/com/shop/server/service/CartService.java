@@ -33,6 +33,7 @@ public class CartService {
 	private final CartItemRepository cartItemRepository;
 	private final OrderService orderService;
 
+	@Transactional
 	public Long addCart(CartItemDto cartItemDto, PrincipalDetails principalDetails) throws Exception {
 
 		Item item = itemRepository.findById(cartItemDto.getItemId())
@@ -71,7 +72,8 @@ public class CartService {
 		return cartDetailDtoList;
 
 	}
-
+	
+	@Transactional(readOnly = true)
 	public boolean validateCartItem(Long cartItemId, PrincipalDetails principalDetails) throws Exception {
 		CartItem cartItem = cartItemRepository.findById(cartItemId)
 				.orElseThrow(() -> new CustomException(ExceptionCode.NO_CART_TO_GET));
@@ -81,7 +83,8 @@ public class CartService {
 			return true;
 		return false;
 	}
-
+	
+	@Transactional
 	public void updateCartItem(Long cartItemId, int count) throws Exception {
 		CartItem cartItem = cartItemRepository.findById(cartItemId)
 				.orElseThrow(() -> new CustomException(ExceptionCode.NO_CART_TO_GET));
@@ -89,6 +92,7 @@ public class CartService {
 		return;
 	}
 
+	@Transactional
 	public void deleteCartItem(Long cartItemId) throws Exception {
 		CartItem cartItem = cartItemRepository.findById(cartItemId)
 				.orElseThrow(() -> new CustomException(ExceptionCode.NO_CART_TO_GET));
@@ -96,6 +100,7 @@ public class CartService {
 		return;
 	}
 
+	@Transactional
 	public Long orderCartItem(List<CartOrderDto> cartOrderDtoList, PrincipalDetails principalDetails) throws Exception {
 
 		List<OrderDto> orderDtoList = new ArrayList<>();
