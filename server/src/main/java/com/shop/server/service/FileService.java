@@ -22,7 +22,6 @@ public class FileService {
 		String fileUploadFullUrl = uploadPath + "/" + savedFileName;
 
 		try {
-			log.debug(uploadPath);
 			
 			File uploadDirectory = new File(uploadPath);
 			if (!uploadDirectory.exists()) {
