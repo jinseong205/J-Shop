@@ -1,4 +1,4 @@
-# Jshop
+# J-Shop
 
 
 ### **개발 기간**
@@ -20,6 +20,9 @@
 ```bash
 docker-compose up
 ```
+
+### **ERD**
+![J-SHOP drawio](https://github.com/jinseong205/J-Shop/assets/57009926/a274f374-2986-47ff-b72f-586ab0b67086)
 
 ### **기능 요약**
 
