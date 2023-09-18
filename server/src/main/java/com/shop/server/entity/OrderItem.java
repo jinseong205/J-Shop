@@ -18,6 +18,7 @@ import lombok.Setter;
 public class OrderItem extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_item_id")
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
