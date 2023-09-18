@@ -11,6 +11,9 @@
 - MySql - 8.0
 - Docker / Nginx
 
+**시스템 구조**
+![시스템구조](https://github.com/jinseong205/J-Shop/assets/57009926/28331f72-8d8c-4158-ae85-d6d0d7b58463)
+
 **실행방법**
 
 ```bash
