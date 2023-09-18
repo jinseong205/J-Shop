@@ -39,7 +39,7 @@ public class CartController {
 	
     
 	@PostMapping(value = "api/cart")
-	public ResponseEntity<?> cart(@RequestBody @Validated CartItemDto cartItemDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception{
+	public ResponseEntity<?> cart(@RequestBody @Validated CartItemDto cartItemDto, @AuthenticationPrincipal PrincipalDetails principalDetails) throws Exception{
 	    Long cartItemId = cartService.addCart(cartItemDto, principalDetails);
 		return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
 	}

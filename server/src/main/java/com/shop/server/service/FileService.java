@@ -22,11 +22,21 @@ public class FileService {
 		String fileUploadFullUrl = uploadPath + "/" + savedFileName;
 
 		try {
+			log.debug(uploadPath);
+			
+			File uploadDirectory = new File(uploadPath);
+			if (!uploadDirectory.exists()) {
+				boolean created = uploadDirectory.mkdirs();
+				if (!created) {
+					throw new CustomException(ExceptionCode.FILE_UPLOAD_ERROR);
+				}
+			}
+
 			FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);
 			fos.write(fileData);
 			fos.close();
 		} catch (Exception e) {
-			throw new CustomException(ExceptionCode.NO_REP_ITEM_IMG);
+			throw new CustomException(ExceptionCode.FILE_UPLOAD_ERROR);
 		}
 
 		return savedFileName;

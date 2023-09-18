@@ -35,6 +35,7 @@ public class ItemService {
 	private final ItemImgRepository itemImgRepository;
 
 	// 상품 생성
+	@Transactional
 	public Item saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws IOException, Exception {
 		Item item = itemFormDto.createItem();
 		itemRepository.save(item);

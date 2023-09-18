@@ -47,5 +47,5 @@ application:
     jwt:
       secret-key: A+7z32MPi+W7O53ZsJ98gY3zKOC8AABTdN3/oa/0XdFG+MIGQkE5D+hlIlStxSSm
       expiration: 1800000 # 30 minutes
-  itemImgLocation: /app/shop/item
-  uploadPath: file:///app/shop/
+  itemImgLocation: /var/lib/server/item
+  uploadPath: file:///var/lib/server/

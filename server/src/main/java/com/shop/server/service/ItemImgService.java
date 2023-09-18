@@ -13,6 +13,7 @@ import com.shop.server.repository.ItemImgRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,8 @@ public class ItemImgService {
 		String imgName = "";
 		String imgUrl = "";
 
+
+		
 		// fileUpload
 		if (oriImgName != null && !oriImgName.equals("")) {
 			imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes());
