@@ -105,7 +105,9 @@ function ItemManage() {
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>
-                  <a href={`/itemupdateForm/${item.id}`}>{item.itemName}</a>
+                  <Link to={`/itemUpdateForm/${item.id}`} className="navbar-brand me-5 text-light">
+                  {item.itemName}
+                  </Link>
                 </td>
                 <td>{item.itemSellStatus === 'SELL' ? '판매중' : '품절'}</td>
                 <td>{item.crtName}</td>

@@ -1,6 +1,8 @@
 package com.shop.server.dto;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

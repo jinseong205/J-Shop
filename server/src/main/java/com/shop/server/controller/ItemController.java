@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.shop.server.auth.PrincipalDetails;
 import com.shop.server.common.exception.CustomException;
@@ -29,6 +31,7 @@ import com.shop.server.entity.Item;
 import com.shop.server.entity.User;
 import com.shop.server.service.ItemService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -56,8 +59,12 @@ public class ItemController {
 	}
 	
 	@PostMapping(value = "api/manager/item", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> itemNew(@RequestPart("itemFormDto") @Validated ItemFormDto itemFormDto, @RequestPart(name = "itemImgFile") List<MultipartFile> itemImgFileList) throws Exception {
-	    
+	public ResponseEntity<?> itemNew(@RequestPart("itemFormDto") @Valid ItemFormDto itemFormDto, BindingResult bindingResult, @RequestPart(name = "itemImgFile", required =  false) List<MultipartFile> itemImgFileList) throws Exception {
+
+	    if(bindingResult.hasErrors()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
+	    }
+		
 		if(itemImgFileList.get(0).isEmpty()) {
 			throw new CustomException(ExceptionCode.NO_REP_ITEM_IMG);
 		}
@@ -68,8 +75,12 @@ public class ItemController {
 	}
 
 	@PutMapping(value = "api/manager/item/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<?> itemUpdate(@PathVariable long id, @RequestPart(name = "itemFormDto") @Validated ItemFormDto itemFormDto, @RequestPart(name = "itemImgFile", required =  false) List<MultipartFile> itemImgFileList) throws Exception {
+	public ResponseEntity<?> itemUpdate(@PathVariable long id, @RequestPart(name = "itemFormDto") @Valid ItemFormDto itemFormDto, BindingResult bindingResult, @RequestPart(name = "itemImgFile", required =  false) List<MultipartFile> itemImgFileList) throws Exception {
 	    
+	    if(bindingResult.hasErrors()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
+	    }
+		
 		Item item = itemService.updateItem(itemFormDto, itemImgFileList);
 	    return new ResponseEntity<>(item , HttpStatus.OK);
 	}
